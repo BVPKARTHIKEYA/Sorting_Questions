@@ -1,0 +1,49 @@
+void quickSort(int arr[], int low, int high)
+{
+    // Only proceed if the subarray has more than one element
+    if (low < high) 
+    {
+        vector<int> temp(high - low + 1); // Temporary array to hold partitioned elements
+        int pivot = arr[high]; // The pivot is chosen as the last element in the range
+        int index = 0; // Index to keep track of the temp array position
+
+        // First pass: Collect elements smaller than pivot
+        for (int i = low; i <= high; i++) // Iterate up to but not including `high`
+        {
+            if (arr[i] < pivot) 
+            {
+                temp[index++] = arr[i]; // Place elements smaller than pivot into temp
+            }
+        }
+
+        int p = index; // Store current index (position to place the pivot)
+        temp[p] = pivot; // Place the pivot after all smaller elements
+        index++; // Move index to next position
+
+         for (int i = low; i <= high; i++) 
+        {
+            if (arr[i] == pivot && i != high) 
+            {
+                temp[index++] = arr[i]; // Place elements equal to the pivot
+            }
+        }
+        // Second pass: Collect elements greater than pivot
+        for (int i = low; i <= high; i++) 
+        {
+            if (arr[i] > pivot) 
+            {
+                temp[index++] = arr[i]; // Place elements larger than pivot into temp
+            }
+        }
+
+        // Copy the elements from temp array back to the original array
+        for (int i = 0; i < temp.size(); i++) 
+        {
+            arr[i + low] = temp[i]; // Copy back to the correct portion of arr[]
+        }
+
+        // Recursively apply quickSort to the left and right subarrays
+        quickSort(arr, low, low + p - 1); // Sort the left subarray (before pivot)
+        quickSort(arr, low + p + 1, high); // Sort the right subarray (after pivot)
+    }
+}
