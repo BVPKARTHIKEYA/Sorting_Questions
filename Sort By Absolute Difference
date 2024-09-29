@@ -1,0 +1,12 @@
+//sorting by absolute diiference
+//stable_sort function
+//Stable Sort: The std::stable_sort function is used to sort the array based on a custom comparator. This ensures that if two elements have the same absolute difference from 
+//k
+//k, they will retain their original order.
+
+void sortABS(int k, vector<int> &arr) {
+       stable_sort(arr.begin(),arr.end(),[k](int a,int b){
+        return abs(a-k)<abs(b-k);   
+       });
+       
+    }
